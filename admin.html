@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Genesis Biz</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .admin-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            font-size: 1.8rem;
+        }
+
+        .admin-header span {
+            color: #ffd700;
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .upload-area {
+            border: 3px dashed #3498db;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: #2980b9;
+            background: #e8f4f8;
+        }
+
+        .upload-area.dragover {
+            border-color: #27ae60;
+            background: #d5f4e6;
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+
+        .upload-area p {
+            color: #7f8c8d;
+            margin: 0.5rem 0;
+        }
+
+        .upload-area input[type="file"] {
+            display: none;
+        }
+
+        .btn-upload {
+            background: #3498db;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+
+        .btn-upload:hover {
+            background: #2980b9;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-group textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            background: #27ae60;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #229954;
+        }
+
+        .btn-clear {
+            background: #e74c3c;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn-clear:hover {
+            background: #c0392b;
+        }
+
+        .preview-area {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .preview-area h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .preview-content {
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .file-info {
+            background: #e8f4f8;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .file-info.show {
+            display: block;
+        }
+
+        .file-info p {
+            margin: 0.5rem 0;
+            color: #2c3e50;
+        }
+
+        .file-info strong {
+            color: #3498db;
+        }
+
+        .artikel-list {
+            margin-top: 2rem;
+        }
+
+        .artikel-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .artikel-item:hover {
+            transform: translateX(5px);
+        }
+
+        .artikel-item h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .artikel-item p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .artikel-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: opacity 0.3s;
+        }
+
+        .btn-small:hover {
+            opacity: 0.8;
+        }
+
+        .btn-edit {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-view {
+            background: #27ae60;
+            color: white;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-header .container {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .upload-area {
+                padding: 2rem 1rem;
+            }
+
+            .artikel-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .artikel-actions {
+                width: 100%;
+            }
+
+            .btn-small {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <div class="container">
+            <h1>Genesis <span>Biz</span> - Admin Dashboard</h1>
+            <a href="index.html" class="back-btn" onclick="notifyIndexPage()">← Kembali ke Website</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="alertContainer"></div>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3 id="totalArticles">0</h3>
+                <p>Total Artikel</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="todayArticles">0</h3>
+                <p>Artikel Hari Ini</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalCategories">6</h3>
+                <p>Kategori</p>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Upload Section -->
+            <div class="card">
+                <h2>📄 Upload Artikel dari File</h2>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <h3>Drag & Drop File di Sini</h3>
+                    <p>atau</p>
+                    <button class="btn-upload" onclick="document.getElementById('fileInput').click()">
+                        Pilih File Word/PDF
+                    </button>
+                    <input type="file" id="fileInput" accept=".docx,.doc,.pdf" onchange="handleFileSelect(event)">
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Format: .docx, .doc, .pdf (Max 10MB)</p>
+                </div>
+
+                <div class="file-info" id="fileInfo">
+                    <p><strong>Nama File:</strong> <span id="fileName"></span></p>
+                    <p><strong>Ukuran:</strong> <span id="fileSize"></span></p>
+                    <p><strong>Status:</strong> <span id="fileStatus">Menunggu...</span></p>
+                </div>
+
+                <div class="loading" id="loadingIndicator">
+                    <div class="spinner"></div>
+                    <p>Memproses file Anda...</p>
+                </div>
+            </div>
+
+            <!-- Form Manual Input -->
+            <div class="card">
+                <h2>✍️ Input Manual Artikel</h2>
+                <form id="articleForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label>Judul Artikel *</label>
+                        <input type="text" id="judulArtikel" required placeholder="Masukkan judul artikel">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kategori *</label>
+                        <select id="kategoriArtikel" required>
+                            <option value="">Pilih Kategori</option>
+                            <option value="Bisnis">Bisnis</option>
+                            <option value="Teknologi">Teknologi</option>
+                            <option value="Lifestyle">Lifestyle</option>
+                            <option value="Keuangan">Keuangan</option>
+                            <option value="Berita">Berita</option>
+                            <option value="Motivasi">Motivasi</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nama Penulis *</label>
+                        <input type="text" id="penulisArtikel" required placeholder="Nama penulis">
+                    </div>
+
+                    <div class="form-group">
+                        <label>URL Gambar Header</label>
+                        <input type="url" id="gambarArtikel" placeholder="https://example.com/image.jpg">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Isi Artikel *</label>
+                        <textarea id="isiArtikel" required placeholder="Tulis isi artikel di sini..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">💾 Simpan Artikel</button>
+                    <button type="button" class="btn-clear" onclick="clearForm()">🗑️ Bersihkan Form</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="card">
+            <h2>👁️ Preview Artikel</h2>
+            <div class="preview-area">
+                <div id="previewContent" class="preview-content">
+                    <p style="color: #7f8c8d; text-align: center;">Preview artikel akan muncul di sini setelah Anda mengisi form atau upload file</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- List Artikel Tersimpan -->
+        <div class="card">
+            <h2>📚 Artikel Tersimpan</h2>
+            <div id="artikelList" class="artikel-list"></div>
+        </div>
+    </div>
+
+    <script>
+        // Update statistics
+        function updateStats() {
+            const artikels = JSON.parse(localStorage.getItem('genesisBizArtikels') || '[]');
+            const today = new Date().toLocaleDateString('id-ID');
+            const todayArticles = artikels.filter(a => a.tanggal === today).length;
+
+            document.getElementById('totalArticles').textContent = artikels.length;
+            document.getElementById('todayArticles').textContent = todayArticles;
+        }
+
+        // Notify index page to reload
+        function notifyIndexPage() {
+            // Set flag untuk trigger reload di index.html
+            localStorage.setItem('genesisBizReload', Date.now().toString());
+        }
+
+        // Drag and Drop functionality
+        const uploadArea = document.getElementById('uploadArea');
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                processFile(files[0]);
+            }
+        });
+
+        // Handle file select
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                processFile(file);
+            }
+        }
+
+        // Process uploaded file
+        async function processFile(file) {
+            const fileInfo = document.getElementById('fileInfo');
+            const loading = document.getElementById('loadingIndicator');
+            
+            // Validate file size (max 10MB)
+            if (file.size > 10 * 1024 * 1024) {
+                showAlert('error', 'File terlalu besar! Maksimal 10MB');
+                return;
+            }
+            
+            // Show file info
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = (file.size / 1024).toFixed(2) + ' KB';
+            fileInfo.classList.add('show');
+            loading.classList.add('show');
+            document.getElementById('fileStatus').textContent = 'Memproses...';
+
+            try {
+                if (file.name.endsWith('.docx') || file.name.endsWith('.doc')) {
+                    await processWordFile(file);
+                } else if (file.name.endsWith('.pdf')) {
+                    showAlert('info', 'File PDF terdeteksi. Untuk demo ini, silakan ekstrak teks dari PDF secara manual dan paste ke form.');
+                    loading.classList.remove('show');
+                    document.getElementById('fileStatus').textContent = 'PDF - Input manual diperlukan';
+                }
+            } catch (error) {
+                console.error('Error processing file:', error);
+                showAlert('error', 'Gagal memproses file. Error: ' + error.message);
+                loading.classList.remove('show');
+                document.getElementById('fileStatus').textContent = 'Gagal';
+            }
+        }
+
+        // Process Word file using Mammoth.js
+        async function processWordFile(file) {
+            const reader = new FileReader();
+            
+            reader.onload = async function(e) {
+                try {
+                    const arrayBuffer = e.target.result;
+                    const result = await mammoth.extractRawText({ arrayBuffer: arrayBuffer });
+                    const text = result.value;
+                    
+                    // Extract title (first line) and content
+                    const lines = text.split('\n').filter(line => line.trim() !== '');
+                    const title = lines[0] || 'Artikel Tanpa Judul';
+                    const content = lines.slice(1).join('\n\n') || text;
+
+                    // Fill form with extracted data
+                    document.getElementById('judulArtikel').value = title;
+                    document.getElementById('isiArtikel').value = content;
+                    
+                    // Update preview
+                    updatePreview();
+                    
+                    document.getElementById('loadingIndicator').classList.remove('show');
+                    document.getElementById('fileStatus').textContent = 'Berhasil! ✅';
+                    showAlert('success', 'File berhasil diproses! Silakan lengkapi informasi tambahan (Kategori & Penulis) dan klik Simpan.');
+                    
+                    // Scroll to form
+                    document.getElementById('kategoriArtikel').focus();
+                } catch (error) {
+                    throw error;
+                }
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+
+        // Update preview
+        function updatePreview() {
+            const judul = document.getElementById('judulArtikel').value;
+            const kategori = document.getElementById('kategoriArtikel').value;
+            const penulis = document.getElementById('penulisArtikel').value;
+            const isi = document.getElementById('isiArtikel').value;
+            
+            const preview = document.getElementById('previewContent');
+            
+            if (!judul && !isi) {
+                preview.innerHTML = '<p style="color: #7f8c8d; text-align: center;">Preview artikel akan muncul di sini</p>';
+                return;
+            }
+
+            preview.innerHTML = `
+                ${kategori ? `<span style="background: #3498db; color: white; padding: 0.3rem 1rem; border-radius: 15px; font-size: 0.85rem; display: inline-block; margin-bottom: 1rem;">${kategori}</span>` : ''}
+                <h3 style="color: #2c3e50; margin-bottom: 1rem; font-size: 1.8rem;">${judul || 'Judul Artikel'}</h3>
+                ${penulis ? `<p style="color: #7f8c8d; margin-bottom: 1.5rem;"><strong>Penulis:</strong> ${penulis}</p>` : ''}
+                <div style="white-space: pre-line;">${isi || 'Isi artikel...'}</div>
+            `;
+        }
+
+        // Auto-update preview when typing
+        document.getElementById('judulArtikel').addEventListener('input', updatePreview);
+        document.getElementById('kategoriArtikel').addEventListener('change', updatePreview);
+        document.getElementById('penulisArtikel').addEventListener('input', updatePreview);
+        document.getElementById('isiArtikel').addEventListener('input', updatePreview);
+
+        // Handle form submit
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const artikel = {
+                id: Date.now(),
+                judul: document.getElementById('judulArtikel').value,
+                kategori: document.getElementById('kategoriArtikel').value,
+                penulis: document.getElementById('penulisArtikel').value,
+                gambar: document.getElementById('gambarArtikel').value || 'https://via.placeholder.com/400x250',
+                isi: document.getElementById('isiArtikel').value,
+                tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+                created: Date.now()
+            };
+
+            // Save to localStorage
+            saveArtikel(artikel);
+            
+            showAlert('success', '✅ Artikel berhasil disimpan dan akan muncul di beranda!');
+            clearForm();
+            loadArtikelList();
+            updateStats();
+            
+            // Notify other tabs/windows
+            notifyIndexPage();
+        }
+
+        // Save artikel
+        function saveArtikel(artikel) {
+            let artikels = JSON.parse(localStorage.getItem('genesisBizArtikels') || '[]');
+            artikels.unshift(artikel);
+            localStorage.setItem('genesisBizArtikels', JSON.stringify(artikels));
+            
+            console.log('✅ Artikel tersimpan:', artikel.judul);
+            console.log('📊 Total artikel:', artikels.length);
+        }
+
+        // Load artikel list
+        function loadArtikelList() {
+            const artikels = JSON.parse(localStorage.getItem('genesisBizArtikels') || '[]');
+            const listContainer = document.getElementById('artikelList');
+            
+            if (artikels.length === 0) {
+                listContainer.innerHTML = '<p style="text-align: center; color: #7f8c8d; padding: 2rem;">Belum ada artikel tersimpan. Upload file atau isi form untuk membuat artikel pertama Anda!</p>';
+                return;
+            }
+
+            listContainer.innerHTML = artikels.map(artikel => `
+                <div class="artikel-item">
+                    <div style="flex: 1;">
+                        <h4>${artikel.judul}</h4>
+                        <p>${artikel.kategori} • ${artikel.penulis} • ${artikel.tanggal}</p>
+                    </div>
+                    <div class="artikel-actions">
+                        <button class="btn-small btn-view" onclick="viewArtikel(${artikel.id})">Lihat</button>
+                        <button class="btn-small btn-edit" onclick="editArtikel(${artikel.id})">Edit</button>
+                        <button class="btn-small btn-delete" onclick="deleteArtikel(${artikel.id})">Hapus</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // View artikel
+        function viewArtikel(id) {
+            const artikels = JSON.parse(localStorage.getItem('genesisBizArtikels') || '[]');
+            const artikel = artikels.find(a => a.id === id);
+            
+            if (artikel) {
+                const previewContent = `
+                    <span style="background: #3498db; color: white; padding: 0.3rem 1rem; border-radius: 15px; font-size: 0.85rem; display: inline-block; margin-bottom: 1rem;">${artikel.kategori}</span>
+                    <h3 style="color: #2c3e50; margin-bottom: 1rem; font-size: 1.8rem;">${artikel.judul}</h3>
+                    <p style="color: #7f8c8d; margin-bottom: 1.5rem;"><strong>Penulis:</strong> ${artikel.penulis}</p>
+                    <div style="white-space: pre-line;">${artikel.isi}</div>
+                `;
+                
+                document.getElementById('previewContent').innerHTML = previewContent;
+                document.querySelector('.preview-area').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Delete artikel
+        function deleteArtikel(id) {
+            if (confirm('Yakin ingin menghapus artikel ini? Artikel akan hilang dari beranda.')) {
+                let artikels = JSON.parse(localStorage.getItem('genesisBizArtikels') || '[]');
+                const deletedArtikel = artikels.find(a => a.id === id);
+                artikels = artikels.filter(a => a.id !== id);
+                localStorage.setItem('genesisBizArtikels', JSON.stringify(artikels));
+                
+                loadArtikelList();
+                updateStats();
+                showAlert('success', `Artikel "${deletedArtikel?.judul}" berhasil dihapus`);
+                
+                // Notify index page
+                notifyIndexPage();
+            }
+        }
+
+        // Edit artikel
+        function editArtikel(id) {
+            const artikels = JSON.parse(localStorage.getItem('genesisBizArtikels') || '[]');
+            const artikel = artikels.find(a => a.id === id);
+            
+            if (artikel) {
+                document.getElementById('judulArtikel').value = artikel.judul;
+                document.getElementById('kategoriArtikel').value = artikel.kategori;
+                document.getElementById('penulisArtikel').value = artikel.penulis;
+                document.getElementById('gambarArtikel').value = artikel.gambar !== 'https://via.placeholder.com/400x250' ? artikel.gambar : '';
+                document.getElementById('isiArtikel').value = artikel.isi;
+                updatePreview();
+                
+                // Hapus artikel lama
+                let updatedArtikels = artikels.filter(a => a.id !== id);
+                localStorage.setItem('genesisBizArtikels', JSON.stringify(updatedArtikels));
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                showAlert('info', `Artikel "${artikel.judul}" dimuat untuk diedit. Klik Simpan setelah selesai.`);
+                
+                loadArtikelList();
+                updateStats();
+            }
+        }
+
+        // Clear form
+        function clearForm() {
+            document.getElementById('articleForm').reset();
+            document.getElementById('fileInfo').classList.remove('show');
+            document.getElementById('fileInput').value = '';
+            updatePreview();
+        }
+
+        // Show alert
+        function showAlert(type, message) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alertContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 300);
+            }, 5000);
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadArtikelList();
+            updateStats();
+            console.log('🚀 Admin Dashboard loaded');
+            console.log('📦 localStorage key: genesisBizArtikels');
+        });
+
+        // Debug: Monitor localStorage changes
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'genesisBizArtikels') {
+                console.log('🔄 localStorage updated from another tab');
+                loadArtikelList();
+                updateStats();
+            }
+        });
+    </script>
+</body>
+</html>

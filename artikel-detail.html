@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Artikel - Genesis Biz</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Logo styling */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px; /* Ukuran logo lebih kecil */
+            width: auto;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem; /* Ukuran text lebih kecil */
+            margin: 0;
+        }
+        
+        /* Navbar height control */
+        .navbar {
+            padding: 0.8rem 0; /* Kurangi padding navbar */
+        }
+        
+        .nav-wrapper {
+            min-height: auto; /* Biarkan tinggi menyesuaikan */
+        }
+
+        /* Additional styles for article detail page */
+        .article-detail-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            padding-top: 120px; /* Tambah ruang lebih besar untuk navbar dan logo */
+        }
+
+        @media (max-width: 768px) {
+            .article-detail-container {
+                padding-top: 100px;
+            }
+        }
+
+        .article-header {
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        .breadcrumb a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .article-main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .article-meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #555;
+        }
+
+        .meta-item .icon {
+            font-size: 1.2rem;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        .article-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .article-body {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #333;
+            white-space: pre-line;
+        }
+
+        .article-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .author-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .author-info p {
+            opacity: 0.9;
+        }
+
+        .share-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .share-section h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .share-btn.facebook {
+            background: #1877f2;
+            color: white;
+        }
+
+        .share-btn.twitter {
+            background: #1da1f2;
+            color: white;
+        }
+
+        .share-btn.whatsapp {
+            background: #25d366;
+            color: white;
+        }
+
+        .share-btn.copy {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .related-articles {
+            margin-top: 3rem;
+        }
+
+        .related-articles h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-bottom: 2rem;
+            margin-top: 1rem; /* Tambah jarak dari atas */
+        }
+
+        .back-button:hover {
+            background: #2980b9;
+        }
+
+        .no-article {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .no-article h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .no-article p {
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .logo img {
+                height: 35px; /* Logo lebih kecil di mobile */
+            }
+            
+            .logo h1 {
+                font-size: 1.3rem; /* Text lebih kecil di mobile */
+            }
+            
+            .article-detail-container {
+                padding-top: 100px;
+            }
+            
+            .article-title {
+                font-size: 1.8rem;
+            }
+
+            .article-content {
+                padding: 1.5rem;
+            }
+
+            .article-body {
+                font-size: 1rem;
+            }
+
+            .article-main-image {
+                height: 250px;
+            }
+
+            .author-box {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <div class="logo">
+                        <img src="GENESIS No BG.png" alt="Logo Genesis Biz" onerror="this.style.display='none'">
+                        <h1>Genesis <span>Biz</span></h1>
+                    </div>
+                    <ul class="nav-menu">
+                        <li><a href="index.html">Beranda</a></li>
+                        <li><a href="index.html#artikel">Artikel</a></li>
+                        <li><a href="index.html#kategori">Kategori</a></li>
+                        <li><a href="index.html#tentang">Tentang Kami</a></li>
+                        <li><a href="index.html#kontak">Kontak</a></li>
+                    </ul>
+                    <div class="nav-icons">
+                        <button class="search-btn">🔍</button>
+                        <button class="menu-toggle">☰</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Article Detail Content -->
+    <div class="article-detail-container">
+        <a href="index.html" class="back-button">← Kembali ke Beranda</a>
+
+        <div id="articleContent">
+            <!-- Content will be loaded by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="GENESIS No BG.png" alt="Logo Genesis Biz" class="footer-logo" onerror="this.style.display='none'">
+                    <h3>Genesis <span>Biz</span></h3>
+                    <p>Platform artikel dan informasi terpercaya untuk menemani perjalanan bisnis dan kehidupan Anda.</p>
+                    <div class="social-links">
+                        <a href="#">📘</a>
+                        <a href="#">🐦</a>
+                        <a href="#">📷</a>
+                        <a href="#">💼</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Kategori</h4>
+                    <ul>
+                        <li><a href="index.html#kategori">Bisnis</a></li>
+                        <li><a href="index.html#kategori">Teknologi</a></li>
+                        <li><a href="index.html#kategori">Lifestyle</a></li>
+                        <li><a href="index.html#kategori">Keuangan</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Perusahaan</h4>
+                    <ul>
+                        <li><a href="index.html#tentang">Tentang Kami</a></li>
+                        <li><a href="#">Tim Kami</a></li>
+                        <li><a href="#">Karir</a></li>
+                        <li><a href="#">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Genesis Biz. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Get article ID from URL
+        function getArticleIdFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
+        }
+
+        // Load article content
+        function loadArticle() {
+            const articleId = getArticleIdFromURL();
+            
+            if (!articleId) {
+                showNoArticle();
+                return;
+            }
+
+            const artikels = JSON.parse(localStorage.getItem('genesisBizArtikels') || '[]');
+            const artikel = artikels.find(a => a.id === parseInt(articleId));
+
+            if (!artikel) {
+                showNoArticle();
+                return;
+            }
+
+            // Display article
+            displayArticle(artikel);
+            
+            // Load related articles
+            loadRelatedArticles(artikel.kategori, artikel.id);
+        }
+
+        // Display article content
+        function displayArticle(artikel) {
+            const content = `
+                <div class="breadcrumb">
+                    <a href="index.html">Beranda</a>
+                    <span>›</span>
+                    <a href="index.html#artikel">Artikel</a>
+                    <span>›</span>
+                    <span>${artikel.kategori}</span>
+                    <span>›</span>
+                    <span>${artikel.judul}</span>
+                </div>
+
+                <div class="article-header">
+                    <span class="kategori-tag">${artikel.kategori}</span>
+                    <h1 class="article-title">${artikel.judul}</h1>
+                    
+                    <div class="article-meta-info">
+                        <div class="meta-item">
+                            <span class="icon">👤</span>
+                            <span><strong>${artikel.penulis}</strong></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="icon">📅</span>
+                            <span>${artikel.tanggal}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="icon">📖</span>
+                            <span>${estimateReadingTime(artikel.isi)} menit baca</span>
+                        </div>
+                    </div>
+                </div>
+
+                <img src="${artikel.gambar}" alt="${artikel.judul}" class="article-main-image" onerror="this.src='https://via.placeholder.com/900x400'">
+
+                <div class="article-content">
+                    <div class="article-body">
+                        ${artikel.isi}
+                    </div>
+                </div>
+
+                <div class="author-box">
+                    <div class="author-avatar">
+                        ✍️
+                    </div>
+                    <div class="author-info">
+                        <h3>Ditulis oleh ${artikel.penulis}</h3>
+                        <p>Penulis konten di Genesis Biz yang berfokus pada ${artikel.kategori.toLowerCase()} dan topik terkait.</p>
+                    </div>
+                </div>
+
+                <div class="share-section">
+                    <h3>📢 Bagikan Artikel Ini</h3>
+                    <div class="share-buttons">
+                        <button class="share-btn facebook" onclick="shareToFacebook()">
+                            📘 Facebook
+                        </button>
+                        <button class="share-btn twitter" onclick="shareToTwitter()">
+                            🐦 Twitter
+                        </button>
+                        <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
+                            💬 WhatsApp
+                        </button>
+                        <button class="share-btn copy" onclick="copyLink()">
+                            🔗 Salin Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="related-articles">
+                    <h3>📚 Artikel Terkait</h3>
+                    <div class="related-grid" id="relatedArticles">
+                        <!-- Related articles will be loaded here -->
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('articleContent').innerHTML = content;
+            document.title = `${artikel.judul} - Genesis Biz`;
+        }
+
+        // Show no article message
+        function showNoArticle() {
+            document.getElementById('articleContent').innerHTML = `
+                <div class="no-article">
+                    <h2>❌ Artikel Tidak Ditemukan</h2>
+                    <p>Maaf, artikel yang Anda cari tidak tersedia atau telah dihapus.</p>
+                    <a href="index.html" class="back-button">← Kembali ke Beranda</a>
+                </div>
+            `;
+        }
+
+        // Estimate reading time
+        function estimateReadingTime(text) {
+            const wordsPerMinute = 200;
+            const wordCount = text.split(/\s+/).length;
+            const minutes = Math.ceil(wordCount / wordsPerMinute);
+            return minutes;
+        }
+
+        // Load related articles
+        function loadRelatedArticles(category, currentId) {
+            const artikels = JSON.parse(localStorage.getItem('genesisBizArtikels') || '[]');
+            const related = artikels
+                .filter(a => a.kategori === category && a.id !== currentId)
+                .slice(0, 3);
+
+            const relatedContainer = document.getElementById('relatedArticles');
+            
+            if (related.length === 0) {
+                relatedContainer.innerHTML = '<p style="color: #7f8c8d;">Belum ada artikel terkait lainnya.</p>';
+                return;
+            }
+
+            relatedContainer.innerHTML = related.map(artikel => `
+                <article class="artikel-card">
+                    <div class="artikel-image">
+                        <img src="${artikel.gambar}" alt="${artikel.judul}" onerror="this.src='https://via.placeholder.com/400x250'">
+                    </div>
+                    <div class="artikel-content">
+                        <div class="artikel-meta">
+                            <span class="kategori-tag">${artikel.kategori}</span>
+                            <span class="date">${artikel.tanggal}</span>
+                        </div>
+                        <h3>${artikel.judul}</h3>
+                        <p>${artikel.isi.substring(0, 100)}...</p>
+                        <div class="artikel-footer">
+                            <div class="author">
+                                <img src="https://via.placeholder.com/40" alt="${artikel.penulis}">
+                                <span>${artikel.penulis}</span>
+                            </div>
+                            <a href="artikel-detail.html?id=${artikel.id}" class="read-more">Baca →</a>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Share functions
+        function shareToFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+        }
+
+        function shareToTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(document.querySelector('.article-title').textContent);
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+        }
+
+        function shareToWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(document.querySelector('.article-title').textContent);
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('✅ Link berhasil disalin ke clipboard!');
+            }).catch(() => {
+                alert('❌ Gagal menyalin link. Silakan salin secara manual.');
+            });
+        }
+
+        // Load article on page load
+        window.addEventListener('DOMContentLoaded', loadArticle);
+    </script>
+</body>
+</html>

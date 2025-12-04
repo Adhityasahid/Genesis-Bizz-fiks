@@ -1,327 +1,400 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Genesis Biz - Portal Artikel & Informasi Terkini</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <style>
-        /* Styling tambahan untuk logo */
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .logo img {
-            height: 40px; /* Ukuran logo konsisten */
-            width: auto;
-        }
-        .logo h1 {
-            font-size: 1.5rem; /* Ukuran text konsisten */
-            margin: 0;
-        }
-        .footer-logo {
-            height: 40px;
-            margin-bottom: 10px;
-        }
-        
-        /* Admin button styling */
-        #admin-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            transition: all 0.3s;
-            z-index: 999;
-            display: none;
-        }
-        
-        #admin-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-        }
-        
-        #admin-btn::before {
-            content: "⚙️";
-        }
+      /* Styling tambahan untuk logo */
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo img {
+        height: 40px; /* Ukuran logo konsisten */
+        width: auto;
+      }
+      .logo h1 {
+        font-size: 1.5rem; /* Ukuran text konsisten */
+        margin: 0;
+      }
+      .footer-logo {
+        height: 40px;
+        margin-bottom: 10px;
+      }
+
+      /* Admin button styling */
+      #admin-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s;
+        z-index: 999;
+        display: none;
+      }
+
+      #admin-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      #admin-btn::before {
+        content: "⚙️";
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Header & Navigation -->
     <header class="header">
-        <nav class="navbar">
-            <div class="container">
-                <div class="nav-wrapper">
-                    <div class="logo">
-                        <img src="GENESIS No BG.png" alt="Logo Genesis Biz" onerror="this.style.display='none'">
-                        <h1>Genesis <span>Biz</span></h1>
-                    </div>
-                    <ul class="nav-menu">
-                        <li><a href="#home" class="active">Beranda</a></li>
-                        <li><a href="#artikel">Artikel</a></li>
-                        <li><a href="#kategori">Kategori</a></li>
-                        <li><a href="#tentang">Tentang Kami</a></li>
-                        <li><a href="#kontak">Kontak</a></li>
-                    </ul>
-                    <div class="nav-icons">
-                        <button class="search-btn">🔍</button>
-                        <button class="menu-toggle">☰</button>
-                    </div>
-                </div>
+      <nav class="navbar">
+        <div class="container">
+          <div class="nav-wrapper">
+            <div class="logo">
+              <img
+                src="GENESIS No BG.png"
+                alt="Logo Genesis Biz"
+                onerror="this.style.display='none'"
+              />
+              <h1>Genesis <span>Biz</span></h1>
             </div>
-        </nav>
+            <ul class="nav-menu">
+              <li><a href="#home" class="active">Beranda</a></li>
+              <li><a href="#artikel">Artikel</a></li>
+              <li><a href="#kategori">Kategori</a></li>
+              <li><a href="#tentang">Tentang Kami</a></li>
+              <li><a href="#kontak">Kontak</a></li>
+            </ul>
+            <div class="nav-icons">
+              <button class="search-btn">🔍</button>
+              <button class="menu-toggle">☰</button>
+            </div>
+            <button
+              class="upload-btn"
+              onclick="window.location.href='admin.html'"
+            >
+              📤 Upload
+            </button>
+          </div>
+        </div>
+      </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h2 class="hero-title">Temukan Informasi & Artikel Berkualitas</h2>
-                <p class="hero-subtitle">Genesis Biz menyajikan artikel terkini seputar bisnis, teknologi, lifestyle, dan berbagai topik menarik lainnya</p>
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Cari artikel yang Anda butuhkan...">
-                    <button onclick="searchArticles()">Cari</button>
-                </div>
-            </div>
+      <div class="container">
+        <div class="hero-content">
+          <h2 class="hero-title">Temukan Informasi & Artikel Berkualitas</h2>
+          <p class="hero-subtitle">
+            Genesis Biz menyajikan artikel terkini seputar bisnis, teknologi,
+            lifestyle, dan berbagai topik menarik lainnya
+          </p>
+          <div class="search-box">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Cari artikel yang Anda butuhkan..."
+            />
+            <button onclick="searchArticles()">Cari</button>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Kategori Section -->
     <section class="kategori-section" id="kategori">
-        <div class="container">
-            <h2 class="section-title">Kategori Artikel</h2>
-            <div class="kategori-grid" id="kategoriGrid">
-                <!-- Kategori akan dimuat oleh JavaScript -->
-            </div>
+      <div class="container">
+        <h2 class="section-title">Kategori Artikel</h2>
+        <div class="kategori-grid" id="kategoriGrid">
+          <!-- Kategori akan dimuat oleh JavaScript -->
         </div>
+      </div>
     </section>
 
     <!-- Artikel Section -->
     <section class="artikel-section" id="artikel">
-        <div class="container">
-            <div class="artikel-header">
-                <h2 class="section-title">Artikel Terbaru</h2>
-                <div class="filter-tabs">
-                    <button class="tab active" onclick="filterArticles('semua')">Semua</button>
-                    <button class="tab" onclick="filterArticles('terpopuler')">Terpopuler</button>
-                    <button class="tab" onclick="filterArticles('terbaru')">Terbaru</button>
-                    <button class="tab" onclick="filterArticles('trending')">Trending</button>
-                </div>
-            </div>
-            
-            <div class="artikel-wrapper">
-                <!-- Main Content -->
-                <div class="artikel-main">
-                    <!-- Featured Article -->
-                    <div id="featuredArticle">
-                        <!-- Featured article akan dimuat oleh JavaScript -->
-                    </div>
-
-                    <!-- Article Grid -->
-                    <div class="artikel-grid" id="artikelGrid">
-                        <!-- Artikel akan dimuat oleh JavaScript -->
-                    </div>
-
-                    <div class="pagination" id="pagination">
-                        <!-- Pagination akan dimuat oleh JavaScript -->
-                    </div>
-                </div>
-
-                <!-- Sidebar -->
-                <aside class="sidebar">
-                    <!-- Popular Articles -->
-                    <div class="sidebar-widget">
-                        <h3 class="widget-title">Artikel Populer</h3>
-                        <div class="popular-list" id="popularList">
-                            <!-- Popular articles akan dimuat oleh JavaScript -->
-                        </div>
-                    </div>
-
-                    <!-- Newsletter -->
-                    <div class="sidebar-widget newsletter">
-                        <h3 class="widget-title">Newsletter</h3>
-                        <p>Dapatkan artikel terbaru langsung ke email Anda</p>
-                        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-                            <input type="email" placeholder="Email Anda" required>
-                            <button type="submit">Berlangganan</button>
-                        </form>
-                    </div>
-
-                    <!-- Tags -->
-                    <div class="sidebar-widget">
-                        <h3 class="widget-title">Tag Populer</h3>
-                        <div class="tag-cloud">
-                            <a href="#" class="tag">Bisnis</a>
-                            <a href="#" class="tag">Startup</a>
-                            <a href="#" class="tag">Marketing</a>
-                            <a href="#" class="tag">Digital</a>
-                            <a href="#" class="tag">Teknologi</a>
-                            <a href="#" class="tag">AI</a>
-                            <a href="#" class="tag">Investasi</a>
-                            <a href="#" class="tag">Finance</a>
-                            <a href="#" class="tag">Lifestyle</a>
-                            <a href="#" class="tag">Tips</a>
-                        </div>
-                    </div>
-                </aside>
-            </div>
+      <div class="container">
+        <div class="artikel-header">
+          <h2 class="section-title">Artikel Terbaru</h2>
+          <div class="filter-tabs">
+            <button class="tab active" onclick="filterArticles('semua')">
+              Semua
+            </button>
+            <button class="tab" onclick="filterArticles('terpopuler')">
+              Terpopuler
+            </button>
+            <button class="tab" onclick="filterArticles('terbaru')">
+              Terbaru
+            </button>
+            <button class="tab" onclick="filterArticles('trending')">
+              Trending
+            </button>
+          </div>
         </div>
+
+        <div class="artikel-wrapper">
+          <!-- Main Content -->
+          <div class="artikel-main">
+            <!-- Featured Article -->
+            <div id="featuredArticle">
+              <!-- Featured article akan dimuat oleh JavaScript -->
+            </div>
+
+            <!-- Article Grid -->
+            <div class="artikel-grid" id="artikelGrid">
+              <!-- Artikel akan dimuat oleh JavaScript -->
+            </div>
+
+            <div class="pagination" id="pagination">
+              <!-- Pagination akan dimuat oleh JavaScript -->
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="sidebar">
+            <!-- Popular Articles -->
+            <div class="sidebar-widget">
+              <h3 class="widget-title">Artikel Populer</h3>
+              <div class="popular-list" id="popularList">
+                <!-- Popular articles akan dimuat oleh JavaScript -->
+              </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="sidebar-widget newsletter">
+              <h3 class="widget-title">Newsletter</h3>
+              <p>Dapatkan artikel terbaru langsung ke email Anda</p>
+              <form
+                class="newsletter-form"
+                onsubmit="subscribeNewsletter(event)"
+              >
+                <input type="email" placeholder="Email Anda" required />
+                <button type="submit">Berlangganan</button>
+              </form>
+            </div>
+
+            <!-- Tags -->
+            <div class="sidebar-widget">
+              <h3 class="widget-title">Tag Populer</h3>
+              <div class="tag-cloud">
+                <a href="#" class="tag">Bisnis</a>
+                <a href="#" class="tag">Startup</a>
+                <a href="#" class="tag">Marketing</a>
+                <a href="#" class="tag">Digital</a>
+                <a href="#" class="tag">Teknologi</a>
+                <a href="#" class="tag">AI</a>
+                <a href="#" class="tag">Investasi</a>
+                <a href="#" class="tag">Finance</a>
+                <a href="#" class="tag">Lifestyle</a>
+                <a href="#" class="tag">Tips</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <img src="GENESIS No BG.png" alt="Logo Genesis Biz" class="footer-logo" onerror="this.style.display='none'">
-                    <h3>Genesis <span>Biz</span></h3>
-                    <p>Platform artikel dan informasi terpercaya untuk menemani perjalanan bisnis dan kehidupan Anda.</p>
-                    <div class="social-links">
-                        <a href="#">📘</a>
-                        <a href="#">🐦</a>
-                        <a href="#">📷</a>
-                        <a href="#">💼</a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Kategori</h4>
-                    <ul>
-                        <li><a href="#" onclick="filterByCategory('Bisnis')">Bisnis</a></li>
-                        <li><a href="#" onclick="filterByCategory('Teknologi')">Teknologi</a></li>
-                        <li><a href="#" onclick="filterByCategory('Lifestyle')">Lifestyle</a></li>
-                        <li><a href="#" onclick="filterByCategory('Keuangan')">Keuangan</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Perusahaan</h4>
-                    <ul>
-                        <li><a href="#tentang">Tentang Kami</a></li>
-                        <li><a href="#tim">Tim Kami</a></li>
-                        <li><a href="#karir">Karir</a></li>
-                        <li><a href="#kontak">Hubungi Kami</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="#privacy">Kebijakan Privasi</a></li>
-                        <li><a href="#terms">Syarat & Ketentuan</a></li>
-                        <li><a href="#cookies">Cookie Policy</a></li>
-                        <li><a href="#disclaimer">Disclaimer</a></li>
-                    </ul>
-                </div>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <img
+              src="GENESIS No BG.png"
+              alt="Logo Genesis Biz"
+              class="footer-logo"
+              onerror="this.style.display='none'"
+            />
+            <h3>Genesis <span>Biz</span></h3>
+            <p>
+              Platform artikel dan informasi terpercaya untuk menemani
+              perjalanan bisnis dan kehidupan Anda.
+            </p>
+            <div class="social-links">
+              <a href="#">📘</a>
+              <a href="#">🐦</a>
+              <a href="#">📷</a>
+              <a href="#">💼</a>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Genesis Biz. All rights reserved.</p>
-            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Kategori</h4>
+            <ul>
+              <li>
+                <a href="#" onclick="filterByCategory('Bisnis')">Bisnis</a>
+              </li>
+              <li>
+                <a href="#" onclick="filterByCategory('Teknologi')"
+                  >Teknologi</a
+                >
+              </li>
+              <li>
+                <a href="#" onclick="filterByCategory('Lifestyle')"
+                  >Lifestyle</a
+                >
+              </li>
+              <li>
+                <a href="#" onclick="filterByCategory('Keuangan')">Keuangan</a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Perusahaan</h4>
+            <ul>
+              <li><a href="#tentang">Tentang Kami</a></li>
+              <li><a href="#tim">Tim Kami</a></li>
+              <li><a href="#karir">Karir</a></li>
+              <li><a href="#kontak">Hubungi Kami</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="#privacy">Kebijakan Privasi</a></li>
+              <li><a href="#terms">Syarat & Ketentuan</a></li>
+              <li><a href="#cookies">Cookie Policy</a></li>
+              <li><a href="#disclaimer">Disclaimer</a></li>
+            </ul>
+          </div>
         </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Genesis Biz. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
 
     <!-- Hidden Admin Button -->
     <button id="admin-btn" onclick="window.location.href='admin.html'"></button>
 
     <script>
-        // Keyboard shortcut: Ctrl + Shift + A untuk menampilkan tombol admin
-        document.addEventListener('keydown', function(event) {
-            if (event.ctrlKey && event.shiftKey && event.key === 'A') {
-                event.preventDefault();
-                const adminBtn = document.getElementById('admin-btn');
-                adminBtn.style.display = adminBtn.style.display === 'none' ? 'block' : 'none';
-            }
-        });
+      // Keyboard shortcut: Ctrl + Shift + A untuk menampilkan tombol admin
+      document.addEventListener("keydown", function (event) {
+        if (event.ctrlKey && event.shiftKey && event.key === "A") {
+          event.preventDefault();
+          const adminBtn = document.getElementById("admin-btn");
+          adminBtn.style.display =
+            adminBtn.style.display === "none" ? "block" : "none";
+        }
+      });
 
-        // Load articles from localStorage
-        function loadArticles() {
-            const artikels = JSON.parse(localStorage.getItem('genesisBizArtikels') || '[]');
-            
-            // Jika tidak ada artikel dari admin, tampilkan artikel default
-            if (artikels.length === 0) {
-                loadDefaultArticles();
-                return;
-            }
+      // Load articles from localStorage
+      function loadArticles() {
+        const artikels = JSON.parse(
+          localStorage.getItem("genesisBizArtikels") || "[]"
+        );
 
-            // Load featured article (artikel terbaru)
-            if (artikels.length > 0) {
-                loadFeaturedArticle(artikels[0]);
-            }
-
-            // Load artikel grid (sisa artikel)
-            loadArticleGrid(artikels.slice(1));
-
-            // Load popular articles
-            loadPopularArticles(artikels.slice(0, 4));
-
-            // Load kategori
-            loadKategori(artikels);
+        // Jika tidak ada artikel dari admin, tampilkan artikel default
+        if (artikels.length === 0) {
+          loadDefaultArticles();
+          return;
         }
 
-        // Load featured article
-        function loadFeaturedArticle(artikel) {
-            const featuredContainer = document.getElementById('featuredArticle');
-            featuredContainer.innerHTML = `
+        // Load featured article (artikel terbaru)
+        if (artikels.length > 0) {
+          loadFeaturedArticle(artikels[0]);
+        }
+
+        // Load artikel grid (sisa artikel)
+        loadArticleGrid(artikels.slice(1));
+
+        // Load popular articles
+        loadPopularArticles(artikels.slice(0, 4));
+
+        // Load kategori
+        loadKategori(artikels);
+      }
+
+      // Load featured article
+      function loadFeaturedArticle(artikel) {
+        const featuredContainer = document.getElementById("featuredArticle");
+        featuredContainer.innerHTML = `
                 <article class="artikel-featured">
                     <div class="artikel-image">
-                        <img src="${artikel.gambar}" alt="${artikel.judul}" onerror="this.src='https://via.placeholder.com/800x400'">
+                        <img src="${artikel.gambar}" alt="${
+          artikel.judul
+        }" onerror="this.src='https://via.placeholder.com/800x400'">
                         <span class="badge">Featured</span>
                     </div>
                     <div class="artikel-content">
                         <div class="artikel-meta">
-                            <span class="kategori-tag">${artikel.kategori}</span>
+                            <span class="kategori-tag">${
+                              artikel.kategori
+                            }</span>
                             <span class="date">${artikel.tanggal}</span>
                         </div>
                         <h3>${artikel.judul}</h3>
                         <p>${artikel.isi.substring(0, 200)}...</p>
                         <div class="artikel-footer">
                             <div class="author">
-                                <img src="https://via.placeholder.com/40" alt="${artikel.penulis}">
+                                <img src="https://via.placeholder.com/40" alt="${
+                                  artikel.penulis
+                                }">
                                 <span>${artikel.penulis}</span>
                             </div>
-                            <a href="#" onclick="viewArticle(${artikel.id})" class="read-more">Baca Selengkapnya →</a>
+                            <a href="#" onclick="viewArticle(${
+                              artikel.id
+                            })" class="read-more">Baca Selengkapnya →</a>
                         </div>
                     </div>
                 </article>
             `;
-        }
+      }
 
-        // Load article grid
-        function loadArticleGrid(artikels) {
-            const gridContainer = document.getElementById('artikelGrid');
-            gridContainer.innerHTML = artikels.map(artikel => `
+      // Load article grid
+      function loadArticleGrid(artikels) {
+        const gridContainer = document.getElementById("artikelGrid");
+        gridContainer.innerHTML = artikels
+          .map(
+            (artikel) => `
                 <article class="artikel-card">
                     <div class="artikel-image">
-                        <img src="${artikel.gambar}" alt="${artikel.judul}" onerror="this.src='https://via.placeholder.com/400x250'">
+                        <img src="${artikel.gambar}" alt="${
+              artikel.judul
+            }" onerror="this.src='https://via.placeholder.com/400x250'">
                     </div>
                     <div class="artikel-content">
                         <div class="artikel-meta">
-                            <span class="kategori-tag">${artikel.kategori}</span>
+                            <span class="kategori-tag">${
+                              artikel.kategori
+                            }</span>
                             <span class="date">${artikel.tanggal}</span>
                         </div>
                         <h3>${artikel.judul}</h3>
                         <p>${artikel.isi.substring(0, 100)}...</p>
                         <div class="artikel-footer">
                             <div class="author">
-                                <img src="https://via.placeholder.com/40" alt="${artikel.penulis}">
+                                <img src="https://via.placeholder.com/40" alt="${
+                                  artikel.penulis
+                                }">
                                 <span>${artikel.penulis}</span>
                             </div>
-                            <a href="#" onclick="viewArticle(${artikel.id})" class="read-more">Baca →</a>
+                            <a href="#" onclick="viewArticle(${
+                              artikel.id
+                            })" class="read-more">Baca →</a>
                         </div>
                     </div>
                 </article>
-            `).join('');
-        }
+            `
+          )
+          .join("");
+      }
 
-        // Load popular articles
-        function loadPopularArticles(artikels) {
-            const popularContainer = document.getElementById('popularList');
-            popularContainer.innerHTML = artikels.map(artikel => `
+      // Load popular articles
+      function loadPopularArticles(artikels) {
+        const popularContainer = document.getElementById("popularList");
+        popularContainer.innerHTML = artikels
+          .map(
+            (artikel) => `
                 <article class="popular-item" onclick="viewArticle(${artikel.id})">
                     <img src="${artikel.gambar}" alt="${artikel.judul}" onerror="this.src='https://via.placeholder.com/80'">
                     <div class="popular-content">
@@ -329,137 +402,164 @@
                         <span class="date">${artikel.tanggal}</span>
                     </div>
                 </article>
-            `).join('');
-        }
+            `
+          )
+          .join("");
+      }
 
-        // Load kategori dengan count artikel
-        function loadKategori(artikels) {
-            const kategoriCount = {};
-            artikels.forEach(artikel => {
-                kategoriCount[artikel.kategori] = (kategoriCount[artikel.kategori] || 0) + 1;
-            });
+      // Load kategori dengan count artikel
+      function loadKategori(artikels) {
+        const kategoriCount = {};
+        artikels.forEach((artikel) => {
+          kategoriCount[artikel.kategori] =
+            (kategoriCount[artikel.kategori] || 0) + 1;
+        });
 
-            const kategoriIcons = {
-                'Bisnis': '💼',
-                'Teknologi': '💻',
-                'Lifestyle': '🎨',
-                'Keuangan': '📈',
-                'Berita': '🌍',
-                'Motivasi': '🎯'
-            };
+        const kategoriIcons = {
+          Bisnis: "💼",
+          Teknologi: "💻",
+          Lifestyle: "🎨",
+          Keuangan: "📈",
+          Berita: "🌍",
+          Motivasi: "🎯",
+        };
 
-            const kategoriGrid = document.getElementById('kategoriGrid');
-            const allKategori = ['Bisnis', 'Teknologi', 'Lifestyle', 'Keuangan', 'Berita', 'Motivasi'];
-            
-            kategoriGrid.innerHTML = allKategori.map(kat => `
+        const kategoriGrid = document.getElementById("kategoriGrid");
+        const allKategori = [
+          "Bisnis",
+          "Teknologi",
+          "Lifestyle",
+          "Keuangan",
+          "Berita",
+          "Motivasi",
+        ];
+
+        kategoriGrid.innerHTML = allKategori
+          .map(
+            (kat) => `
                 <div class="kategori-card" onclick="filterByCategory('${kat}')">
                     <div class="kategori-icon">${kategoriIcons[kat]}</div>
                     <h3>${kat}</h3>
                     <p>${kategoriCount[kat] || 0} Artikel</p>
                 </div>
-            `).join('');
+            `
+          )
+          .join("");
+      }
+
+      // Load default articles jika belum ada artikel dari admin
+      function loadDefaultArticles() {
+        const defaultArticles = [
+          {
+            id: 1,
+            judul: "Strategi Bisnis Digital di Era Modern",
+            kategori: "Bisnis",
+            penulis: "Ahmad Rizki",
+            gambar: "https://via.placeholder.com/800x400",
+            isi: "Pelajari bagaimana membangun bisnis digital yang sukses dengan strategi pemasaran online, optimasi SEO, dan teknik growth hacking terkini. Dalam era digital ini, bisnis harus beradaptasi dengan cepat untuk tetap kompetitif.",
+            tanggal: "2 Desember 2024",
+          },
+          {
+            id: 2,
+            judul: "Artificial Intelligence: Masa Depan Teknologi",
+            kategori: "Teknologi",
+            penulis: "Siti Nurhaliza",
+            gambar: "https://via.placeholder.com/400x250",
+            isi: "Bagaimana AI mengubah cara kita bekerja dan hidup di era digital ini. AI telah menjadi bagian penting dalam transformasi digital berbagai industri.",
+            tanggal: "1 Des 2024",
+          },
+          {
+            id: 3,
+            judul: "Tips Produktif Bekerja dari Rumah",
+            kategori: "Lifestyle",
+            penulis: "Budi Santoso",
+            gambar: "https://via.placeholder.com/400x250",
+            isi: "Maksimalkan produktivitas dengan cara kerja yang efektif dari rumah. Work from home membutuhkan disiplin dan strategi yang tepat.",
+            tanggal: "30 Nov 2024",
+          },
+        ];
+
+        loadFeaturedArticle(defaultArticles[0]);
+        loadArticleGrid(defaultArticles.slice(1));
+        loadPopularArticles(defaultArticles);
+        loadKategori(defaultArticles);
+      }
+
+      // View article details
+      function viewArticle(id) {
+        // Redirect ke halaman detail artikel
+        window.location.href = `artikel-detail.html?id=${id}`;
+      }
+
+      // Filter articles
+      function filterArticles(filter) {
+        // Update active tab
+        document
+          .querySelectorAll(".tab")
+          .forEach((tab) => tab.classList.remove("active"));
+        event.target.classList.add("active");
+
+        const artikels = JSON.parse(
+          localStorage.getItem("genesisBizArtikels") || "[]"
+        );
+
+        // Implementasi filter bisa disesuaikan
+        loadArticleGrid(artikels.slice(1));
+      }
+
+      // Filter by category
+      function filterByCategory(category) {
+        const artikels = JSON.parse(
+          localStorage.getItem("genesisBizArtikels") || "[]"
+        );
+        const filtered = artikels.filter((a) => a.kategori === category);
+
+        if (filtered.length > 0) {
+          loadFeaturedArticle(filtered[0]);
+          loadArticleGrid(filtered.slice(1));
         }
 
-        // Load default articles jika belum ada artikel dari admin
-        function loadDefaultArticles() {
-            const defaultArticles = [
-                {
-                    id: 1,
-                    judul: "Strategi Bisnis Digital di Era Modern",
-                    kategori: "Bisnis",
-                    penulis: "Ahmad Rizki",
-                    gambar: "https://via.placeholder.com/800x400",
-                    isi: "Pelajari bagaimana membangun bisnis digital yang sukses dengan strategi pemasaran online, optimasi SEO, dan teknik growth hacking terkini. Dalam era digital ini, bisnis harus beradaptasi dengan cepat untuk tetap kompetitif.",
-                    tanggal: "2 Desember 2024"
-                },
-                {
-                    id: 2,
-                    judul: "Artificial Intelligence: Masa Depan Teknologi",
-                    kategori: "Teknologi",
-                    penulis: "Siti Nurhaliza",
-                    gambar: "https://via.placeholder.com/400x250",
-                    isi: "Bagaimana AI mengubah cara kita bekerja dan hidup di era digital ini. AI telah menjadi bagian penting dalam transformasi digital berbagai industri.",
-                    tanggal: "1 Des 2024"
-                },
-                {
-                    id: 3,
-                    judul: "Tips Produktif Bekerja dari Rumah",
-                    kategori: "Lifestyle",
-                    penulis: "Budi Santoso",
-                    gambar: "https://via.placeholder.com/400x250",
-                    isi: "Maksimalkan produktivitas dengan cara kerja yang efektif dari rumah. Work from home membutuhkan disiplin dan strategi yang tepat.",
-                    tanggal: "30 Nov 2024"
-                }
-            ];
+        // Scroll to artikel section
+        document
+          .getElementById("artikel")
+          .scrollIntoView({ behavior: "smooth" });
+      }
 
-            loadFeaturedArticle(defaultArticles[0]);
-            loadArticleGrid(defaultArticles.slice(1));
-            loadPopularArticles(defaultArticles);
-            loadKategori(defaultArticles);
+      // Search articles
+      function searchArticles() {
+        const searchTerm = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const artikels = JSON.parse(
+          localStorage.getItem("genesisBizArtikels") || "[]"
+        );
+
+        const filtered = artikels.filter(
+          (a) =>
+            a.judul.toLowerCase().includes(searchTerm) ||
+            a.isi.toLowerCase().includes(searchTerm)
+        );
+
+        if (filtered.length > 0) {
+          loadFeaturedArticle(filtered[0]);
+          loadArticleGrid(filtered.slice(1));
+        } else {
+          alert("Artikel tidak ditemukan");
         }
+      }
 
-        // View article details
-        function viewArticle(id) {
-            // Redirect ke halaman detail artikel
-            window.location.href = `artikel-detail.html?id=${id}`;
-        }
+      // Newsletter subscription
+      function subscribeNewsletter(event) {
+        event.preventDefault();
+        alert("Terima kasih telah berlangganan newsletter Genesis Biz!");
+        event.target.reset();
+      }
 
-        // Filter articles
-        function filterArticles(filter) {
-            // Update active tab
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
+      // Load articles on page load
+      window.addEventListener("DOMContentLoaded", loadArticles);
 
-            const artikels = JSON.parse(localStorage.getItem('genesisBizArtikels') || '[]');
-            
-            // Implementasi filter bisa disesuaikan
-            loadArticleGrid(artikels.slice(1));
-        }
-
-        // Filter by category
-        function filterByCategory(category) {
-            const artikels = JSON.parse(localStorage.getItem('genesisBizArtikels') || '[]');
-            const filtered = artikels.filter(a => a.kategori === category);
-            
-            if (filtered.length > 0) {
-                loadFeaturedArticle(filtered[0]);
-                loadArticleGrid(filtered.slice(1));
-            }
-            
-            // Scroll to artikel section
-            document.getElementById('artikel').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Search articles
-        function searchArticles() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const artikels = JSON.parse(localStorage.getItem('genesisBizArtikels') || '[]');
-            
-            const filtered = artikels.filter(a => 
-                a.judul.toLowerCase().includes(searchTerm) || 
-                a.isi.toLowerCase().includes(searchTerm)
-            );
-
-            if (filtered.length > 0) {
-                loadFeaturedArticle(filtered[0]);
-                loadArticleGrid(filtered.slice(1));
-            } else {
-                alert('Artikel tidak ditemukan');
-            }
-        }
-
-        // Newsletter subscription
-        function subscribeNewsletter(event) {
-            event.preventDefault();
-            alert('Terima kasih telah berlangganan newsletter Genesis Biz!');
-            event.target.reset();
-        }
-
-        // Load articles on page load
-        window.addEventListener('DOMContentLoaded', loadArticles);
-
-        // Reload articles when returning from admin page
-        window.addEventListener('focus', loadArticles);
+      // Reload articles when returning from admin page
+      window.addEventListener("focus", loadArticles);
     </script>
-</body>
+  </body>
 </html>
